@@ -1,0 +1,46 @@
+<view>
+	<view class="head">
+		<view class="info">
+			<view style="margin-left:125px;padding-top:30px;">
+				<van-icon name="user-circle-o" size="50px" />
+			</view>
+			<view style="">
+				<button class="login">登录</button>
+			</view>
+		</view>
+		<!-- <view class="info">
+			<view class="phone">
+				<van-icon name="phone-o" />
+				15688708938
+			</view>
+			<van-row>
+				<van-col span="12" custom-class="num">
+					<view class="tview">
+						<text style="font-size:20px">12</text>
+						<text style="font-size:14px;color:#b5b2b0">购买次数</text>
+					</view>
+				</van-col>
+				<van-col span="12" custom-class="num">
+					<view class="tview">
+						<van-icon name="info-o" size="28px" />
+						<text style="font-size:14px;color:#b5b2b0">关于我们</text>
+					</view>
+
+				</van-col>
+			</van-row>
+		</view> -->
+	</view>
+	<view style="width:100%;margin-top:20px;">
+		<van-cell
+		 title="全部订单"
+		 icon="orders-o"
+		 is-link
+		/>
+		<van-cell
+		 title="收货地址"
+		 icon="location-o"
+		 is-link
+		/>
+	</view>
+</view>
+

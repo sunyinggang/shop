@@ -1,0 +1,20 @@
+.title{
+    margin:15px;
+    height: 75px;
+    border-right: 1px dashed #7E8B92;
+}
+.price{
+    margin-top: 10px;
+    color: brown;
+}
+.share{
+    height: 75px;
+    margin: 20px;
+    padding-left: 5px;
+    background-color:azure;
+    font-size: 10px;
+    vertical-align:middle;
+}
+.content{
+    padding: 20px;
+}

@@ -1,8 +1,9 @@
 {
   "pages": [
-    "pages/good/index",
     "pages/index/index",
-    "pages/user/index"
+    "pages/user/index",
+    "pages/buy/index",
+    "pages/good/index"
   ],
   "tabBar": {
     "custom": true,

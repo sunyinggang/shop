@@ -1,0 +1,62 @@
+<!--index.wxml-->
+<view class="wai">
+	<view>
+		<swiper
+		 class="carousel"
+		 indicator-dots="{{true}}"
+		 autoplay="{{true}}"
+		 interval="{{3000}}"
+		 duration="{{1000}}"
+		 previous-margin="50px"
+		 next-margin="50px"
+		 circular="true"
+		 bindchange="swiperChange"
+		>
+			<swiper-item
+			 class="swiper-item"
+			 wx:for="{{carousel.imgs}}"
+			 wx:for-item="item"
+			>
+				<image
+				 src="{{item}}"
+				 class="carousel-image {{carousel.currentIndex == index ? 'active' : 'quiet'}}"
+				 mode="scaleToFill"
+				/>
+			</swiper-item>
+		</swiper>
+	</view>
+
+	<van-divider contentPosition="center" customStyle="color: #1989fa; border-color: #1989fa; font-size: 18px;">
+		商品
+	</van-divider>
+	<van-grid column-num="2" gutter="{{ 10 }}">
+		<view>
+			<van-grid-item
+			 use-slot
+			 wx:for="{{goods}}"
+			 url="/pages/good/index?id={{item.id}}"
+			>
+				<image style="width: 100%; height: 170px;" src="{{rootUrl}}{{item.img_url}}" />
+				<view class="good-text">
+					<view>
+						<font>
+							{{item.title}}
+						</font>
+					</view>
+
+					<view style="color:#b7b8b7;font-size:12px;">
+						<font>
+							{{item.brief}}
+						</font>
+					</view>
+					<view style="color:red;font-size:14px;">
+						<font>
+							￥{{item.price}}
+						</font>
+					</view>
+				</view>
+			</van-grid-item>
+		</view>
+	</van-grid>
+</view>
+

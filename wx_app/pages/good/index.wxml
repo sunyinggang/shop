@@ -1,0 +1,46 @@
+<view>
+	<view>
+		<image src="{{rootUrl}}{{good.img_url}}" style="width:100%" />
+	</view>
+	<view>
+		<van-row>
+			<van-col span="20">
+				<view class="title">
+					{{good.title}}
+					<view class="price">￥{{good.price}}</view>
+				</view>
+			</van-col>
+			<van-col span="4">
+				<button class="share" open-type='share'>
+					<van-icon name="share-o" size="12px" />
+					分享
+				</button>
+			</van-col>
+		</van-row>
+	</view>
+	<van-divider contentPosition="center">商品描述</van-divider>
+	<view class="content">
+		<view wx:if="{{good.context}}">
+			{{good.context}}
+		</view>
+		<view wx:else>
+			<van-empty description="暂无商品描述" />
+		</view>
+
+	</view>
+	<van-goods-action>
+		<van-goods-action-icon
+		 icon="shop-o"
+		 text="首页"
+		 url="/pages/index/index"
+		 link-type="switchTab"
+		 bind:click="onClickIcon"
+		/>
+		<van-goods-action-button
+		 text="立即购买"
+		 url="/pages/buy/index?id={{id}}"
+		 bind:click="onClickButton"
+		/>
+	</van-goods-action>
+</view>
+

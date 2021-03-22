@@ -1,0 +1,20 @@
+.address{
+    height: 100px;
+    background-color: azure;
+}
+.button-a{
+    padding: 30px;
+    width: 150px;
+    margin: 0 auto;
+}
+.address-l{
+    margin-top: 25px;
+    padding-left: 15px;
+}
+.address-o{
+    margin-top: 25px;
+}
+
+.address-r{
+    margin-top: 40px;
+}

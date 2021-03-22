@@ -1,0 +1,56 @@
+<view>
+	<navigation-bar
+	 title="{{nbTitle}}"
+	 loading="{{nbLoading}}"
+	 front-color="{{nbFrontColor}}"
+	 background-color="{{nbBackgroundColor}}"
+	 color-animation-duration="2000"
+	 color-animation-timing-func="easeIn"
+	/>
+	<view class="address">
+		<view wx:if="{{addressInfo}}" bindtap="chooseAddress">
+			<van-row>
+				<van-col span="3" custom-class="address-l">
+					<van-icon name="location-o" />
+				</van-col>
+				<van-col span="19" custom-class="address-o">
+					<view style="font-size:13px;">{{ addressInfo.userName }} {{ addressInfo.telNumber }}</view>
+					<view style="font-size:12px;color:#878787;margin-top:8px;">{{ addressInfo.provinceName }} {{ addressInfo.cityName }} {{ addressInfo.countyName }} {{ addressInfo.detailInfo }}</view>
+				</van-col>
+				<van-col span="2" custom-class="address-r">
+					<van-icon name="arrow" />
+				</van-col>
+			</van-row>
+
+		</view>
+		<view class="button-a" wx:else>
+			<van-button
+			 plain
+			 hairline
+			 color="#48aa03"
+			 icon="location-o"
+			 custom-style="width:150px;"
+			 bind:click="chooseAddress"
+			>选择地址
+			</van-button>
+		</view>
+	</view>
+	<view style="margin-top:30px;">
+		<van-card
+		 price="{{good.price}}"
+		 title="{{good.title}}"
+		 thumb="{{rootUrl}}{{good.img_url}}"
+		>
+			<view slot="footer">
+				<van-stepper value="{{ 1 }}" bind:change="onChange" />
+			</view>
+		</van-card>
+	</view>
+	<van-submit-bar
+	 price="{{ 3050 }}"
+	 button-text="提交订单"
+	 bind:submit="onSubmit"
+	/>
+
+</view>
+
