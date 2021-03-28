@@ -1,0 +1,18 @@
+<view>
+	<view style="margin-top:20px;">
+		<van-divider contentPosition="center" customStyle="color: #00CD00; border-color: #00CD00; font-size: 18px;">
+			下单成功
+		</van-divider>
+	</view>
+	<view>
+		<van-row>
+			<van-col span="8" custom-class="m-l">
+				<van-button type="default" bind:click="toIndex">返回首页</van-button>
+			</van-col>
+			<van-col span="8" custom-class="m-l">
+				<van-button type="primary" bind:click="orderDetail">查看订单</van-button>
+			</van-col>
+		</van-row>
+	</view>
+</view>
+

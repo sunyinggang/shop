@@ -5,6 +5,9 @@
     "van-col": "/components/vant/col/index",
     "van-button": "/components/vant/button/index",
     "van-cell": "/components/vant/cell/index",
-    "van-cell-group": "/components/vant/cell-group/index"
+    "van-cell-group": "/components/vant/cell-group/index",
+    "van-dialog": "/components/vant/dialog/index",
+    "van-field": "/components/vant/field/index",
+    "van-popup": "/components/vant/popup/index"
   }
 }

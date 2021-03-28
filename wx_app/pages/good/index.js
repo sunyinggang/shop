@@ -15,18 +15,6 @@ Page({
   },
   onShow() {
     this.findDetail(this.data.id)
-
-  },
-  onHide() {
-
-  },
-  onUnload() {
-
-  },
-  onShareAppMessage() {
-    return {
-      title: '',
-    };
   },
   //点击事件：通过id查找商品详情
   findDetail(id){

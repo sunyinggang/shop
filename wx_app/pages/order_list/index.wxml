@@ -1,0 +1,20 @@
+<view>
+	<view
+	 style="margin-top:20px;"
+	 wx:for="{{order_list}}"
+	 bindtap="toOrderDetail"
+	 data-id="{{item.id}}"
+	>
+		<van-card
+		 price="{{item.total_price}}"
+		 desc="订单号：{{item.order_num}}"
+		 title="{{item.good_title}}"
+		 thumb="{{rootUrl}}{{item.image_url}}"
+		>
+			<view slot="footer">
+				<van-button size="mini">查看详情</van-button>
+			</view>
+		</van-card>
+	</view>
+</view>
+

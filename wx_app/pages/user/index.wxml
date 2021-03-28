@@ -1,46 +1,90 @@
 <view>
 	<view class="head">
-		<view class="info">
-			<view style="margin-left:125px;padding-top:30px;">
-				<van-icon name="user-circle-o" size="50px" />
-			</view>
-			<view style="">
-				<button class="login">登录</button>
-			</view>
-		</view>
-		<!-- <view class="info">
+		<view class="info" wx:if="{{user}}">
 			<view class="phone">
 				<van-icon name="phone-o" />
-				15688708938
+				{{user.phone}}
 			</view>
 			<van-row>
 				<van-col span="12" custom-class="num">
 					<view class="tview">
-						<text style="font-size:20px">12</text>
+						<text style="font-size:20px">{{user.buy_num}}</text>
 						<text style="font-size:14px;color:#b5b2b0">购买次数</text>
 					</view>
 				</van-col>
 				<van-col span="12" custom-class="num">
 					<view class="tview">
-						<van-icon name="info-o" size="28px" />
-						<text style="font-size:14px;color:#b5b2b0">关于我们</text>
+						<text style="font-size:20px">1</text>
+						<text style="font-size:14px;color:#b5b2b0">年龄</text>
 					</view>
 
 				</van-col>
 			</van-row>
-		</view> -->
+		</view>
+		<view class="info" wx:else>
+			<view style="margin-left:125px;padding-top:30px;">
+				<van-icon name="user-circle-o" size="50px" />
+			</view>
+			<view>
+				<button class="login" bindtap="getPhoneNumber">登录
+				</button>
+			</view>
+		</view>
 	</view>
 	<view style="width:100%;margin-top:20px;">
 		<van-cell
 		 title="全部订单"
 		 icon="orders-o"
 		 is-link
+		 bind:click="getOrderList"
 		/>
 		<van-cell
 		 title="收货地址"
 		 icon="location-o"
 		 is-link
+		 bind:click="chooseAddress"
 		/>
 	</view>
 </view>
+
+<van-dialog
+ use-slot
+ title="手机号登录"
+ show="{{ show }}"
+ show-cancel-button
+ bind:close="onClose"
+ bind:confirm="login"
+>
+	<van-cell-group>
+		<van-field
+		 label="手机号码"
+		 model:value="{{ phone }}"
+		 placeholder="请输入手机号"
+		 border="{{ false }}"
+		/>
+	</van-cell-group>
+	<van-cell-group>
+		<van-field
+		 model:value="{{ sms }}"
+		 center
+		 clearable
+		 label="短信验证码"
+		 placeholder="请输入短信验证码"
+		 border="{{ false }}"
+		 use-button-slot
+		>
+			<van-button
+			 slot="button"
+			 size="small"
+			 type="primary"
+			 bind:click="sendSms"
+			>
+				发送验证码
+			</van-button>
+		</van-field>
+	</van-cell-group>
+
+</van-dialog>
+
+<van-popup show="{{ alert }}" bind:close="onCloseAlert">请先进行登录</van-popup>
 

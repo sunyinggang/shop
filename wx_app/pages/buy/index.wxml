@@ -47,10 +47,12 @@
 		</van-card>
 	</view>
 	<van-submit-bar
-	 price="{{ 3050 }}"
+	 price="{{good.price*100*num}}"
 	 button-text="提交订单"
 	 bind:submit="onSubmit"
 	/>
 
 </view>
+
+<van-popup show="{{ alert }}" bind:close="onCloseAlert">请先选择收货地址</van-popup>
 

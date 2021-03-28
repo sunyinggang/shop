@@ -1,0 +1,59 @@
+<view class="con">
+	<navigation-bar
+	 title="{{nbTitle}}"
+	 loading="{{nbLoading}}"
+	 front-color="{{nbFrontColor}}"
+	 background-color="{{nbBackgroundColor}}"
+	 color-animation-duration="2000"
+	 color-animation-timing-func="easeIn"
+	/>
+	<view class="address">
+		<view>
+			<van-row>
+				<van-col span="5" custom-class="address-l">
+					<van-icon name="location-o" />
+				</van-col>
+				<van-col span="19" custom-class="address-o">
+					<view style="font-size:13px;">{{ order_detail.address_people_name }} {{ order_detail.address_phone }}</view>
+					<view style="font-size:12px;color:#878787;margin-top:8px;">{{ order_detail.address_info }}</view>
+				</van-col>
+			</van-row>
+		</view>
+	</view>
+	<view class="add-time">
+		<van-row>
+			<van-col span="6" custom-class="address-l">
+				订单编号
+			</van-col>
+			<van-col span="18" custom-class="address-o">
+				{{order_detail.order_num}}
+			</van-col>
+		</van-row>
+		<van-row>
+			<van-col span="6" custom-class="address-l">
+				下单时间
+			</van-col>
+			<van-col span="18" custom-class="address-o">
+				{{order_detail.create_time}}
+			</van-col>
+		</van-row>
+	</view>
+	<view style="margin-top:30px;">
+		<van-card
+		 price="{{order_detail.price}}"
+		 title="{{order_detail.good_title}}"
+		 thumb="{{rootUrl}}{{order_detail.image_url}}"
+		>
+		</van-card>
+	</view>
+	<view class="footer">
+		<view>数量:
+			<font>{{order_detail.number}}</font>
+		</view>
+		<view>总价:
+			<font style="color:red;">￥ {{order_detail.total_price}}</font>
+		</view>
+	</view>
+
+</view>
+

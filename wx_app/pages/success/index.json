@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "van-divider": "/components/vant/divider/index",
+    "van-row": "/components/vant/row/index",
+    "van-col": "/components/vant/col/index",
+    "van-button": "/components/vant/button/index"
+  }
+}

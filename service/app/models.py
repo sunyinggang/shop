@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from app import db
 
 
@@ -16,3 +18,38 @@ class Goods(db.Model):
             del dict["_sa_instance_state"]
             return dict
 
+
+class User(db.Model):
+    __tablename__ = 'user'
+    id = db.Column(db.Integer, primary_key=True)
+    phone = db.Column(db.String(255))
+    buy_num = db.Column(db.Integer)
+    age = db.Column(db.Integer)
+
+    def to_json(self):
+        dict = self.__dict__
+        if "_sa_instance_state" in dict:
+            del dict["_sa_instance_state"]
+            return dict
+
+
+class Order(db.Model):
+    __tablename__ = 'order'
+    id = db.Column(db.Integer, primary_key=True)
+    order_num = db.Column(db.String(255))
+    good_title = db.Column(db.String(255))
+    price = db.Column(db.String(255))
+    number = db.Column(db.Integer)
+    total_price = db.Column(db.String(255))
+    address_info = db.Column(db.String(255))
+    address_people_name = db.Column(db.String(255))
+    address_phone = db.Column(db.String(255))
+    user_id = db.Column(db.Integer)
+    image_url = db.Column(db.String(255))
+    create_time = db.Column(db.String(255))
+
+    def to_json(self):
+        dict = self.__dict__
+        if "_sa_instance_state" in dict:
+            del dict["_sa_instance_state"]
+            return dict

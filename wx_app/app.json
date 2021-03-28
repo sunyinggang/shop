@@ -1,9 +1,12 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/order_list/index",
+    "pages/good/index",
     "pages/user/index",
     "pages/buy/index",
-    "pages/good/index"
+    "pages/order_detail/index",
+    "pages/success/index"
   ],
   "tabBar": {
     "custom": true,
