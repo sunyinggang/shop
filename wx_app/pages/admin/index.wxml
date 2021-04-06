@@ -1,0 +1,65 @@
+<view>
+	<view style="color:#969696; margin:10px 0 5px 5px;">编辑短信模板</view>
+	<van-collapse
+	 accordion
+	 value="{{ activeName }}"
+	 bind:change="onChange"
+	>
+		<van-collapse-item
+		 title="{{item.label_name}}"
+		 wx:for="{{label_list}}"
+		 wx:for-index="{{i}}"
+		 name="{{item.id}}"
+		>
+			<van-panel title="{{item.title}}" use-footer-slot>
+				<view class="content">{{item.context}}</view>
+				<view slot="footer" class="footer">
+					<van-button
+					 size="small"
+					 type="danger"
+					 bind:click="labelOpen"
+					>修改
+					</van-button>
+				</view>
+			</van-panel>
+		</van-collapse-item>
+	</van-collapse>
+</view>
+
+<van-dialog
+ use-slot
+ title="修改信息"
+ show="{{ showLabel }}"
+ show-cancel-button
+ bind:close="labelClose"
+ bind:confirm="editLabel"
+>
+	<van-cell-group>
+		<van-field
+		 label="信息标题"
+		 model:value="{{ title }}"
+		 placeholder="请输入信息标题"
+		 required
+		 border="{{ false }}"
+		/>
+	</van-cell-group>
+	<van-cell-group>
+		<van-field
+		 label="信息内容"
+		 model:value="{{ context }}"
+		 placeholder="请输入信息内容"
+		 required
+		 border="{{ false }}"
+		/>
+	</van-cell-group>
+</van-dialog>
+
+<van-dialog
+ use-slot
+ show="{{ alert }}"
+ bind:close="onCloseAlert"
+ message="{{alert_info}}"
+>
+	<view style="margin:20px auto; text-align: center;">{{alert_info}}</view>
+</van-dialog>
+

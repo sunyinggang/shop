@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/admin/index",
     "pages/index/index",
     "pages/order_list/index",
     "pages/good/index",

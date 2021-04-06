@@ -23,8 +23,11 @@ class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     phone = db.Column(db.String(255))
+    password = db.Column(db.String(255))
     buy_num = db.Column(db.Integer)
     age = db.Column(db.Integer)
+    total_consume = db.Column(db.String(255))
+    label_id = db.Column(db.Integer)
 
     def to_json(self):
         dict = self.__dict__
@@ -47,6 +50,20 @@ class Order(db.Model):
     user_id = db.Column(db.Integer)
     image_url = db.Column(db.String(255))
     create_time = db.Column(db.String(255))
+
+    def to_json(self):
+        dict = self.__dict__
+        if "_sa_instance_state" in dict:
+            del dict["_sa_instance_state"]
+            return dict
+
+
+class Label(db.Model):
+    __tablename__ = 'label'
+    id = db.Column(db.Integer, primary_key=True)
+    label_name = db.Column(db.String(255))
+    title = db.Column(db.String(255))
+    context = db.Column(db.TEXT)
 
     def to_json(self):
         dict = self.__dict__

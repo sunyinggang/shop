@@ -3,9 +3,11 @@ import math
 import random
 
 from flask import jsonify, request
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from . import home
 from .. import db
-from ..models import Goods, User, Order
+from ..models import Goods, User, Order, Label
 
 
 # 通过配置headers参数允许请求跨域
@@ -73,6 +75,10 @@ def submit_order():
     res['order_id'] = order_add.id
     user = User.query.filter_by(id=user_id).first()
     user.buy_num = user.buy_num+1
+    user.total_consume = str(float(user.total_consume)+total_price)
+    type_name = user_type(user.buy_num, float(user.total_consume))
+    label = Label.query.filter_by(label_name = type_name).first()
+    user.label_id = label.id
     db.session.add(user)
     db.session.commit()
     return jsonify(res)
@@ -102,30 +108,120 @@ def order_detail():
     return jsonify(res)
 
 
-# 通过验证码登录
+# 登录
 @home.route("/login/")
 def login():
     phone = request.args.get("phone")
-    num = request.args.get("num")
+    password = request.args.get("password")
+    res = {}
+    user = User.query.filter_by(phone=phone).first()
+    print(password)
+    if user is None:
+        res['code'] = 101
+    elif check_password_hash(user.password, password) is False:
+        res['code'] = 102
+    else:
+        res['code'] = 200
+        res['user'] = user.to_json()
+    return jsonify(res)
+
+# 通过手机号注册
+@home.route("/register/")
+def register():
+    phone = request.args.get("phone")
+    password = request.args.get("password")
+    age = request.args.get("age")
     res = {}
     user = User.query.filter_by(phone=phone).first()
     if user is None:
+        label = Label.query.filter_by(label_name="潜在客户").first()
         user_add = User(
             phone=phone,
-            buy_num=0
+            total_consume='0',
+            buy_num=0,
+            age=age,
+            password=generate_password_hash(password),
+            label_id=label.id
         )
         db.session.add(user_add)
         db.session.flush()
-        res['user'] = user_add.to_json()
         db.session.commit()
-    else:
+        user = User.query.filter_by(phone=phone).first()
         res['user'] = user.to_json()
+        res['code'] = 0
+        print(res)
+    else:
+        res['code'] = 100
+    return jsonify(res)
+
+
+# 修改年龄
+@home.route("/edit/age/")
+def editAge():
+    user_id = request.args.get("user_id")
+    res = {}
+    age = request.args.get("age")
+    user = User.query.filter_by(id=user_id).first()
+    user.age = age
+    db.session.add(user)
+    db.session.commit()
+    res['age'] = age
+    return jsonify(res)
+
+
+# 查询标签信息列表
+@home.route("/label/list/")
+def label_list():
+    label_list = Label.query.filter_by().all()
+    list = []
+    res = {}
+    for label in label_list:
+        list.append(label.to_json())
+    res['list'] = list
     print(res)
     return jsonify(res)
 
+
+# 根据id查询标签详情信息
+@home.route("/label/detail/")
+def label_detail():
+    id = request.args.get("id")
+    label = Label.query.filter_by(id=id).first()
+    res = label.to_json()
+    print(res)
+    return jsonify(res)
+
+# 修改标签信息
+@home.route("/label/edit/", methods=["POST"])
+def editLabel():
+    info = request.get_json()
+    print(info)
+    res = {}
+    id = info["id"]
+    title = info["title"]
+    context = info["context"]
+
+    label = Label.query.filter_by(id=id).first()
+    label.title = title
+    label.context = context
+    db.session.add(label)
+    db.session.commit()
+    res['code'] = 0
+    return jsonify(res)
 
 # 根据时间戳生成唯一订单号
 def tid_maker():
     return '{0:%Y%m%d%H%M%S%f}'.format(datetime.datetime.now())+''.join([str(random.randint(1,10)) for i in range(5)])
 
 
+# 判断用户类型
+def user_type(user_buy_num, user_total_consume):
+    if user_total_consume<=500 or user_buy_num <=5:
+        return "基础客户"
+    elif 500<user_total_consume<=1000 and user_buy_num<=10:
+        return "一般客户"
+    elif user_total_consume>1000:
+        if user_buy_num<=10:
+            return "一般用户"
+        else:
+            return "重点客户"
