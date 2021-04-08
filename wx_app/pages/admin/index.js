@@ -7,7 +7,10 @@ Page({
     title: '',
     context: '',
     alert_info: '',
-    alert: false
+    alert: false,
+    showType: false,
+    columns: ['潜在客户', '基础客户', '一般客户', '重点客户'],
+    type: '基础客户'
   },
   onLoad(options) {
 
@@ -82,4 +85,30 @@ Page({
   onCloseAlert() {
     this.setData({ alert: false });
   },
+  //打开发送短信页面
+  typeOpen() {
+    this.setData({ showType: true });
+  },
+  //关闭发送短信页面
+  typeClose() {
+    this.setData({ showType: false });
+  },
+  // 选择用户类型
+  onChangeType(event){
+    const { index } = event.detail;
+    this.setData({ type: this.data.columns[index] });
+  },
+  //发送短信
+  sendEmail(){
+    var that = this
+    wx.request({
+      url: api.WxApiRoot+'send/email?type='+this.data.type, //接口地址
+      success(res) {
+        that.setData({ 
+          alert: true,
+          alert_info: "修改成功"
+         });
+      }
+    })
+  }
 });

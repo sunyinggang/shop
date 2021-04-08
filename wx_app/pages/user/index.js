@@ -13,7 +13,8 @@ Page({
     alert: false,
     alert_info: '',
     age: '',
-    age_show: false
+    age_show: false,
+    email: ''
   },
   // 打开登录框
   getPhoneNumber: function () {
@@ -54,7 +55,8 @@ Page({
   //注册
   confirmRegister: function () {
     var type="^[0-9]*[1-9][0-9]*$"; 
-    var re = new RegExp(type); 
+    var re = new RegExp(type);
+    var email_reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
     if(this.data.password != this.data.two_password){
       this.setData({ 
         alert: true,
@@ -65,10 +67,15 @@ Page({
         alert: true,
         alert_info: "年龄格式不正确，请输入大于零的整数!"
        });
+    }else if(!email_reg.test(this.data.email)){
+      this.setData({ 
+        alert: true,
+        alert_info: "邮箱格式不正确，请重新输入!"
+       });
     }else{
       var that = this
       wx.request({
-        url: api.WxApiRoot + 'register?phone=' + this.data.phone + '&password=' + this.data.password+'&age=' + this.data.age, //接口地址
+        url: api.WxApiRoot + 'register?phone=' + this.data.phone + '&password=' + this.data.password+'&age=' + this.data.age+'&email=' + this.data.email, //接口地址
         success(res) {
           if(res.data.code == 100){
             that.setData({ 

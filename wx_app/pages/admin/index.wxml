@@ -24,6 +24,12 @@
 			</van-panel>
 		</van-collapse-item>
 	</van-collapse>
+	<view style="color:#969696; margin:10px 0 5px 5px;">发送短信</view>
+	<van-cell
+	 title="选择类型"
+	 is-link
+	 bind:click="typeOpen"
+	/>
 </view>
 
 <van-dialog
@@ -61,5 +67,20 @@
  message="{{alert_info}}"
 >
 	<view style="margin:20px auto; text-align: center;">{{alert_info}}</view>
+</van-dialog>
+
+<van-dialog
+ use-slot
+ title="选择用户类型"
+ show="{{ showType }}"
+ show-cancel-button
+ bind:close="typeClose"
+ bind:confirm="sendEmail"
+>
+	<van-picker
+	 columns="{{ columns }}"
+	 default-index="{{ 1 }}"
+	 bind:change="onChangeType"
+	/>
 </van-dialog>
 

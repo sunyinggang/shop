@@ -1,14 +1,17 @@
+# -*- coding: utf-8 -*-
 import datetime
 import math
 import random
+from email.mime.text import MIMEText
+from encodings.base64_codec import base64_encode
 
-from flask import jsonify, request
+from flask import jsonify, request, Flask, render_template
+from flask_mail import Mail, Message
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from . import home
-from .. import db
+from .. import db, app
 from ..models import Goods, User, Order, Label
-
 
 # 通过配置headers参数允许请求跨域
 @home.after_request
@@ -131,6 +134,7 @@ def register():
     phone = request.args.get("phone")
     password = request.args.get("password")
     age = request.args.get("age")
+    email = request.args.get("email")
     res = {}
     user = User.query.filter_by(phone=phone).first()
     if user is None:
@@ -139,6 +143,7 @@ def register():
             phone=phone,
             total_consume='0',
             buy_num=0,
+            email=email,
             age=age,
             password=generate_password_hash(password),
             label_id=label.id
@@ -209,6 +214,42 @@ def editLabel():
     res['code'] = 0
     return jsonify(res)
 
+# 发送邮件
+@home.route('/send/email/')
+def send_email():
+    type = request.args.get("type")
+    label = Label.query.filter_by(label_name=type).first()
+    user_list = User.query.filter_by(label_id=label.id).all()
+    email_list = []
+    title = label.title
+    body = label.context
+    for user in user_list:
+        email_list.append(user.email)
+    # 发送短信的配置
+    # 如果是qq邮箱这里应该为"smtp.qq.com"
+    app.config['MAIL_SERVER'] = "smtp.qq.com"
+    # 如果使用ssl则端口号应为465
+    app.config['MAIL_PORT'] = 465
+    app.config['MAIL_USE_SSL'] = True
+    app.config['MAIL_USE_TLS'] = False
+    # 发送人的邮箱
+    app.config['MAIL_USERNAME'] = "2861679704"
+    # 这里的密码是之前获取的邮箱授权码
+    app.config['MAIL_PASSWORD'] = "xhtkdrlfyjrvdfcc"
+    # 显示发送人的名字
+    # app.config['MAIL_DEFAULT_SENDER'] = '2861679704@qq.com'
+    mail = Mail(app)
+    # body = render_template('潜在客户123')
+    msg = Message(subject=title,
+                  sender="2861679704@qq.com",
+                  recipients=email_list)
+    msg.body = body
+    mail.send(msg)
+    res = {}
+    return jsonify(res)
+
+
+
 # 根据时间戳生成唯一订单号
 def tid_maker():
     return '{0:%Y%m%d%H%M%S%f}'.format(datetime.datetime.now())+''.join([str(random.randint(1,10)) for i in range(5)])
@@ -222,6 +263,26 @@ def user_type(user_buy_num, user_total_consume):
         return "一般客户"
     elif user_total_consume>1000:
         if user_buy_num<=10:
-            return "一般用户"
+            return "一般客户"
         else:
             return "重点客户"
+
+# 发送邮件
+@home.route('/test/')
+def test():
+
+    app.config.update(dict(
+        DEBUG=True,
+        MAIL_SERVER='smtp.qq.com',
+        MAIL_PORT=465,
+        MAIL_USE_TLS=False,
+        MAIL_USE_SSL=True,
+        MAIL_USERNAME="2861679704",
+        MAIL_PASSWORD='xhtkdrlfyjrvdfcc'
+    ))
+    mail = Mail(app)
+    msg = Message('xxx',sender='2861679704@qq.com', recipients=["136080416@qq.com"])
+    msg.body = "hello 中国"
+    mail.send(msg)
+    res = {}
+    return jsonify(res)

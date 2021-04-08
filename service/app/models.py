@@ -28,6 +28,7 @@ class User(db.Model):
     age = db.Column(db.Integer)
     total_consume = db.Column(db.String(255))
     label_id = db.Column(db.Integer)
+    email = db.Column(db.String(255))
 
     def to_json(self):
         dict = self.__dict__

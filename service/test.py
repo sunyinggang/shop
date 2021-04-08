@@ -1,3 +1,3 @@
-test1 = "123.56"
-print(float(test1))
-print(float(test1)*2)
+
+print('潜在客户123'.encode("ascii", errors="replace"))
+

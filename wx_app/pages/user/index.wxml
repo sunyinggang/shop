@@ -5,6 +5,10 @@
 				<van-icon name="phone-o" />
 				{{user.phone}}
 			</view>
+			<view class="email">
+				<van-icon name="envelop-o" />
+				{{user.email}}
+			</view>
 			<van-row>
 				<van-col span="12" custom-class="num">
 					<view class="tview">
@@ -116,6 +120,17 @@
 		 border="{{ false }}"
 		/>
 	</van-cell-group>
+
+	<van-cell-group>
+		<van-field
+		 model:value="{{ email }}"
+		 label="邮箱"
+		 placeholder="请输入邮箱"
+		 required
+		 border="{{ false }}"
+		/>
+	</van-cell-group>
+
 	<van-cell-group>
 		<van-field
 		 model:value="{{ password }}"

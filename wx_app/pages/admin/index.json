@@ -8,6 +8,7 @@
     "van-dialog": "/components/vant/dialog/index",
     "van-cell": "/components/vant/cell/index",
     "van-cell-group": "/components/vant/cell-group/index",
-    "van-field": "/components/vant/field/index"
+    "van-field": "/components/vant/field/index",
+    "van-picker": "/components/vant/picker/index"
   }
 }
