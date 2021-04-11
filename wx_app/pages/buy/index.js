@@ -1,4 +1,6 @@
 const api = require('../../utils/api.js');
+//引入js文件
+var event = require('../../utils/eventbus.js')
 Page({
   data: {
     nbFrontColor: '#000000',
@@ -21,6 +23,11 @@ Page({
     var that = this
     this.setData({
       id:options.id
+    })
+    event.sub('address', that,function(addressInfo){
+      that.setData({
+        addressInfo: addressInfo
+      })
     })
   },
   onReady() {
@@ -59,16 +66,9 @@ Page({
   },
   //选择收货地址，调用微信自带的收货地址
   chooseAddress() {
-    wx.chooseAddress({
-      success: (res) => {
-        this.setData({
-          addressInfo: res
-        })
-      },
-      fail: function(err) {
-        console.log(err)
-      }
-    })
+      wx.navigateTo({
+        url: '/pages/address_list/index?user_id=' + this.data.user_id + '&no_select=0'
+      })
   },
   //提交订单
   onSubmit(event){

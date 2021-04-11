@@ -14,8 +14,8 @@
 					<van-icon name="location-o" />
 				</van-col>
 				<van-col span="19" custom-class="address-o">
-					<view style="font-size:13px;">{{ addressInfo.userName }} {{ addressInfo.telNumber }}</view>
-					<view style="font-size:12px;color:#878787;margin-top:8px;">{{ addressInfo.provinceName }} {{ addressInfo.cityName }} {{ addressInfo.countyName }} {{ addressInfo.detailInfo }}</view>
+					<view style="font-size:13px;">{{ addressInfo.name }} {{ addressInfo.phone }}</view>
+					<view style="font-size:12px;color:#878787;margin-top:8px;">{{ addressInfo.address }}</view>
 				</van-col>
 				<van-col span="2" custom-class="address-r">
 					<van-icon name="arrow" />

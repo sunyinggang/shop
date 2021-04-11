@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/address_list/index",
+    "pages/address/index",
     "pages/admin/index",
     "pages/order_list/index",
     "pages/good/index",

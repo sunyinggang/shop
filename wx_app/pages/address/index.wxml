@@ -1,0 +1,38 @@
+<view style="margin-top:30px;">
+	<van-cell-group>
+		<van-field
+		 model:value="{{ name }}"
+		 required
+		 clearable
+		 label="收件人姓名"
+		 placeholder="请输入收件人姓名"
+		/>
+		<van-field
+		 model:value="{{ phone }}"
+		 required
+		 clearable
+		 label="收件人手机号"
+		 placeholder="收件人手机号码"
+		/>
+		<van-field
+		 model:value="{{ address }}"
+		 required
+		 clearable
+		 label="收件人地址"
+		 placeholder="格式：省市区详细地址"
+		/>
+	</van-cell-group>
+</view>
+<view style="margin:20px 0 0 135px;">
+	<van-button type="info" bind:click="addAddress">确认添加</van-button>
+</view>
+
+<van-dialog
+ use-slot
+ show="{{ alert }}"
+ bind:close="onCloseAlert"
+ message="{{alert_info}}"
+>
+	<view style="margin:20px auto; text-align: center;">{{alert_info}}</view>
+</van-dialog>
+

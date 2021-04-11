@@ -11,7 +11,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from . import home
 from .. import db, app
-from ..models import Goods, User, Order, Label
+from ..models import Goods, User, Order, Label, Address
+
 
 # 通过配置headers参数允许请求跨域
 @home.after_request
@@ -55,9 +56,9 @@ def submit_order():
     image_url = info['good']['img_url']
     number = info['num']
     total_price = float(price)*int(number)
-    address_info = info['address_info']['provinceName']+info['address_info']['cityName']+info['address_info']['countyName']+info['address_info']['detailInfo']
-    address_people_name = info['address_info']['userName']
-    address_phone = info['address_info']['telNumber']
+    address_info = info['address_info']['address']
+    address_people_name = info['address_info']['name']
+    address_phone = info['address_info']['phone']
     user_id = int(info['user_id'])
     create_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     order_add = Order(
@@ -249,6 +250,50 @@ def send_email():
     return jsonify(res)
 
 
+# 添加收货地址
+@home.route('/address/add/')
+def address_add():
+    user_id = request.args.get("user_id")
+    name = request.args.get("name")
+    phone = request.args.get("phone")
+    address = request.args.get("address")
+    address_add = Address(
+        user_id=user_id,
+        name=name,
+        phone=phone,
+        address=address
+    )
+    db.session.add(address_add)
+    db.session.flush()
+    db.session.commit()
+    res = {}
+    res['code'] = 0
+    return jsonify(res)
+
+
+# 删除收货地址
+@home.route('/address/del/')
+def address_del():
+    id = int(request.args.get("id"))
+    address = Address.query.filter_by(id=id).first()
+    db.session.delete(address)
+    db.session.commit()
+    res = {}
+    res['code'] = 0
+    return jsonify(res)
+
+
+# 根据用户查询收货地址列表
+@home.route('/address/list/')
+def address_list():
+    user_id = request.args.get("user_id")
+    address_list = Address.query.filter_by(user_id=user_id).all()
+    address_list_json = []
+    for address in address_list:
+        address_list_json.append(address.to_json())
+    res = {}
+    res['address_list'] = address_list_json
+    return jsonify(res)
 
 # 根据时间戳生成唯一订单号
 def tid_maker():

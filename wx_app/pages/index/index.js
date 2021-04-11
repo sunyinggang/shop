@@ -40,6 +40,7 @@ Page({
     wx.request({
       url: api.WxApiRoot+'list', //接口地址
       success(res) {
+        console.log(res.data)
         that.setData({
               goods:res.data.list
             })

@@ -1,0 +1,50 @@
+<scroll-view class="scroll" scroll-y="true">
+	<view wx:for="{{address_list}}" style="height:65px;">
+		<view class="product-name-wrap">
+			<view class="ui-list-item-info">{{item.name}}
+				<text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;</text>
+				{{item.phone}}
+			</view>
+			<view class="ui-list-item-address">
+				{{item.address}}
+			</view>
+			<view class="ui-list-item-time" wx:if="{{no_select=='1'}}">
+				<p
+				 class="ui-list-item-del"
+				 data-id="{{item.id}}"
+				 bindtap="delAddress"
+				>删除
+				</p>
+			</view>
+			<view class="ui-list-item-time" wx:else>
+				<p
+				 class="ui-list-item-del"
+				 data-id="{{item.id}}"
+				 data-name="{{item.name}}"
+				 data-phone="{{item.phone}}"
+				 data-address="{{item.address}}"
+				 bindtap="selectAddress"
+				>选择
+				</p>
+			</view>
+			<view class="separate"></view>
+		</view>
+	</view>
+</scroll-view>
+<view
+ class="add-address"
+ bindtap="addAddress"
+ wx:if="{{no_select=='1'}}"
+>
+	新增地址
+</view>
+
+<van-dialog
+ use-slot
+ show="{{ alert }}"
+ bind:close="onCloseAlert"
+ message="{{alert_info}}"
+>
+	<view style="margin:20px auto; text-align: center;">{{alert_info}}</view>
+</van-dialog>
+

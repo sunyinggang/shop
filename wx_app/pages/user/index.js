@@ -115,16 +115,16 @@ Page({
   },
  //选择收货地址，调用微信自带的收货地址
   chooseAddress() {
-    wx.chooseAddress({
-      success: (res) => {
-        this.setData({
-          addressInfo: res
-        })
-      },
-      fail: function(err) {
-        console.log(err)
-      }
-    })
+    if(this.data.user == null){
+      this.setData({ 
+        alert: true,
+        alert_info: "请先进行登录"
+       });
+    }else{
+      wx.navigateTo({
+        url: '/pages/address_list/index?user_id=' + this.data.user.id+ '&no_select=1'
+      })
+    }
   },
   // 退出登录
   quit(){

@@ -71,3 +71,18 @@ class Label(db.Model):
         if "_sa_instance_state" in dict:
             del dict["_sa_instance_state"]
             return dict
+
+
+class Address(db.Model):
+    __tablename__ = 'address'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    name = db.Column(db.String(255))
+    phone = db.Column(db.String(255))
+    address = db.Column(db.String(255))
+
+    def to_json(self):
+        dict = self.__dict__
+        if "_sa_instance_state" in dict:
+            del dict["_sa_instance_state"]
+            return dict
