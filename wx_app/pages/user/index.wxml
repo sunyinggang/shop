@@ -45,6 +45,12 @@
 	</view>
 	<view style="width:100%;margin-top:20px;">
 		<van-cell
+		 title="我的优惠券"
+		 icon="coupon-o"
+		 is-link
+		 bind:click="getCouponList"
+		/>
+		<van-cell
 		 title="全部订单"
 		 icon="orders-o"
 		 is-link

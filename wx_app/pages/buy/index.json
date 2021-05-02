@@ -9,6 +9,7 @@
     "van-icon": "/components/vant/icon/index",
     "van-row": "/components/vant/row/index",
     "van-col": "/components/vant/col/index",
-    "van-popup": "/components/vant/popup/index"
+    "van-popup": "/components/vant/popup/index",
+    "van-cell": "/components/vant/cell/index"
   }
 }

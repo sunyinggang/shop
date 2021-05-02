@@ -11,7 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from . import home
 from .. import db, app
-from ..models import Goods, User, Order, Label, Address
+from ..models import Goods, User, Order, Label, Address, Coupon
 
 
 # 通过配置headers参数允许请求跨域
@@ -55,7 +55,11 @@ def submit_order():
     price = info['good']['price']
     image_url = info['good']['img_url']
     number = info['num']
-    total_price = float(price)*int(number)
+    coupon_id = info['coupon_id']
+    coupon = Coupon.query.filter_by(id=coupon_id).first()
+    coupon.status = 1
+    db.session.add(coupon)
+    total_price = float(price)*int(number)-float(coupon.les)
     address_info = info['address_info']['address']
     address_people_name = info['address_info']['name']
     address_phone = info['address_info']['phone']
@@ -268,6 +272,43 @@ def address_add():
     db.session.commit()
     res = {}
     res['code'] = 0
+    return jsonify(res)
+
+
+# 创建优惠券
+@home.route('/create/coupon/')
+def create_coupon():
+    type = request.args.get("type")
+    al = request.args.get("al")
+    les = request.args.get("les")
+    label = Label.query.filter_by(label_name=type).first()
+    user_list = User.query.filter_by(label_id=label.id).all()
+    for user in user_list:
+        coupon = Coupon(
+            user_id=user.id,
+            al=al,
+            les=les,
+            status=0
+        )
+        db.session.add(coupon)
+        db.session.flush()
+    db.session.commit()
+    res = {}
+    res['code'] = 0
+    return jsonify(res)
+
+
+# 根据用户查询优惠券
+@home.route('/coupon/list/')
+def coupon_list():
+    user_id = request.args.get("user_id")
+    coupon_list = Coupon.query.filter_by(user_id=user_id, status=0).all()
+    list = []
+    res = {}
+    for coupon in coupon_list:
+        list.append(coupon.to_json())
+    res['list'] = list
+    print(res)
     return jsonify(res)
 
 

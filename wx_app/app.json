@@ -9,7 +9,8 @@
     "pages/user/index",
     "pages/buy/index",
     "pages/order_detail/index",
-    "pages/success/index"
+    "pages/success/index",
+    "pages/coupon/index"
   ],
   "tabBar": {
     "custom": true,

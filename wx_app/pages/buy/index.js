@@ -12,7 +12,9 @@ Page({
     rootUrl:api.WxApiRoot,
     addressInfo: null,
     total_price:0,
-    alert: false
+    alert: false,
+    couponInfo: null,
+    les: 0
   },
   onChange(event) {
     this.setData({
@@ -27,6 +29,12 @@ Page({
     event.sub('address', that,function(addressInfo){
       that.setData({
         addressInfo: addressInfo
+      })
+    })
+    event.sub('coupon', that,function(couponInfo){
+      that.setData({
+        couponInfo: couponInfo,
+        les: couponInfo.les
       })
     })
   },
@@ -64,10 +72,16 @@ Page({
       }
     })
   },
-  //选择收货地址，调用微信自带的收货地址
+  //选择收货地址
   chooseAddress() {
       wx.navigateTo({
         url: '/pages/address_list/index?user_id=' + this.data.user_id + '&no_select=0'
+      })
+  },
+  //选择优惠券
+  chooseCoupon() {
+      wx.navigateTo({
+        url: '/pages/coupon/index?user_id=' + this.data.user_id + '&no_select=0'
       })
   },
   //提交订单
@@ -83,6 +97,7 @@ Page({
           user_id: this.data.user_id,
           num: this.data.num,
           good: this.data.good,
+          coupon_id: this.data.couponInfo.id,
           address_info: this.data.addressInfo
         },
         method: 'POST',

@@ -9,8 +9,11 @@ Page({
     alert_info: '',
     alert: false,
     showType: false,
+    showCoupon: false,
     columns: ['潜在客户', '基础客户', '一般客户', '重点客户'],
-    type: '基础客户'
+    type: '基础客户',
+    al: 0,
+    les: 0
   },
   onLoad(options) {
 
@@ -110,5 +113,29 @@ Page({
          });
       }
     })
-  }
+  },
+  //打开创建优惠券页面
+  couponOpen() {
+    this.setData({ showCoupon: true });
+  },
+  //关闭打开创建优惠券页面页面
+  typeClose() {
+    this.setData({ showCoupon: false });
+  },
+  //创建优惠券
+  createCoupon(){
+    var that = this
+    console.log(this.data.type)
+    console.log(this.data.les)
+    console.log(this.data.al)
+    wx.request({
+      url: api.WxApiRoot+'create/coupon?type='+this.data.type+'&al='+this.data.al+'&les='+this.data.les, //接口地址
+      success(res) {
+        that.setData({ 
+          alert: true,
+          alert_info: "创建成功"
+         });
+      }
+    })
+  },
 });

@@ -26,9 +26,15 @@
 	</van-collapse>
 	<view style="color:#969696; margin:10px 0 5px 5px;">发送短信</view>
 	<van-cell
-	 title="选择类型"
+	 title="选择用户类型"
 	 is-link
 	 bind:click="typeOpen"
+	/>
+	<view style="color:#969696; margin:10px 0 5px 5px;">创建优惠券</view>
+	<van-cell
+	 title="选择用户类型"
+	 is-link
+	 bind:click="couponOpen"
 	/>
 </view>
 
@@ -82,5 +88,39 @@
 	 default-index="{{ 1 }}"
 	 bind:change="onChangeType"
 	/>
+</van-dialog>
+
+<van-dialog
+ use-slot
+ title="创建优惠券"
+ show="{{ showCoupon }}"
+ show-cancel-button
+ bind:close="couponClose"
+ bind:confirm="createCoupon"
+>
+	<van-picker
+	 columns="{{ columns }}"
+	 default-index="{{ 1 }}"
+	 bind:change="onChangeType"
+	/>
+	<view style="margin-left:20px;">
+		<van-cell-group>
+			满：
+			<van-field
+			 model:value="{{ al }}"
+			 placeholder="请输入整数金额"
+			 border="{{ false }}"
+			/>
+		</van-cell-group>
+		<van-cell-group>
+			减：
+			<van-field
+			 model:value="{{ les }}"
+			 placeholder="请输入整数金额"
+			 border="{{ false }}"
+			/>
+		</van-cell-group>
+	</view>
+
 </van-dialog>
 

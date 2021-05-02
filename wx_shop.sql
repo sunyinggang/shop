@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-04-11 18:46:55
+-- 生成日期： 2021-05-02 10:20:27
 -- 服务器版本： 5.7.26
 -- PHP 版本： 7.3.4
 
@@ -42,6 +42,30 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` (`id`, `user_id`, `name`, `phone`, `address`) VALUES
 (4, 17, 'wqe', 'ewqe', 'wqe');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `coupon`
+--
+
+CREATE TABLE `coupon` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `al` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '满多少',
+  `les` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '减多少',
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '使用状态'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 转存表中的数据 `coupon`
+--
+
+INSERT INTO `coupon` (`id`, `user_id`, `al`, `les`, `status`) VALUES
+(1, 17, '45', '5', 1),
+(2, 16, '45', '5', 0),
+(3, 19, '45', '5', 0),
+(4, 17, '100', '50', 0);
 
 -- --------------------------------------------------------
 
@@ -92,7 +116,7 @@ CREATE TABLE `label` (
 --
 
 INSERT INTO `label` (`id`, `label_name`, `context`, `title`) VALUES
-(1, '潜在客户', '我', '12'),
+(1, '潜在客户', '我we', '12'),
 (2, '基础客户', '基础客户内容1', '消息通知'),
 (3, '一般客户', '一般客户内容', '消息通知'),
 (4, '重点客户', '重点客户内容', '消息通知');
@@ -123,6 +147,7 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`id`, `order_num`, `good_title`, `price`, `number`, `total_price`, `address_info`, `address_people_name`, `address_phone`, `user_id`, `create_time`, `image_url`) VALUES
+(46, '202105021018315602491021018', '双色百褶裙', '199.00', 1, '194.0', 'wqe', 'wqe', 'ewqe', 17, '2021-05-02 10:18:31', 'static/images/good1.png'),
 (45, '2021041118452603136676366', '双色百褶裙', '199.00', 1, '199.0', 'wqe', 'wqe', 'ewqe', 17, '2021-04-11 18:45:26', 'static/images/good1.png'),
 (36, '20210407140119943658710838', '双色百褶裙', '199.00', 1, '199.0', '广东省广州市海珠区新港中路397号', '张三', '020-81167888', 17, '2021-04-07 14:01:19', 'static/images/good1.png'),
 (37, '20210407140240492497310767', 'Sleeve羊绒毛衣', '399.00', 1, '399.0', '广东省广州市海珠区新港中路397号', '张三', '020-81167888', 18, '2021-04-07 14:02:40', 'static/images/good2.png'),
@@ -157,7 +182,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `phone`, `buy_num`, `age`, `total_consume`, `label_id`, `password`, `email`) VALUES
 (16, '12345', 0, 17, '0', 1, 'pbkdf2:sha256:150000$Z6J5u45l$cbf868a9e13f3583362fcb82aac1e44eb31d6eecdf969038fd77d76283cb753b', '136080416@qq.com'),
-(17, '123', 2, 17, '398.0', 2, 'pbkdf2:sha256:150000$FXQmY5fn$0b0b1dd8e4b8dcc72e657964cfdc12db8c8a438b44a487c628bf533ca9916704', '1974124574@qq.com'),
+(17, '123', 3, 17, '592.0', 2, 'pbkdf2:sha256:150000$FXQmY5fn$0b0b1dd8e4b8dcc72e657964cfdc12db8c8a438b44a487c628bf533ca9916704', '1974124574@qq.com'),
 (18, '123777', 8, 17, '3189.0', 3, 'pbkdf2:sha256:150000$yUON8djZ$247118bac9b1b366962358d7cec592cd1ab1bef1cc9aa56c4a3cb02f27afc436', '1905616293@qq.com'),
 (19, '15432', 0, 18, '0', 1, 'pbkdf2:sha256:150000$4A1xUkTi$ac59e8d5e295e1a2cfa6f66d782f5ffe3aacc37e96be87fbba69723bcb884a90', '1391973617@qq.com');
 
@@ -169,6 +194,12 @@ INSERT INTO `user` (`id`, `phone`, `buy_num`, `age`, `total_consume`, `label_id`
 -- 表的索引 `address`
 --
 ALTER TABLE `address`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- 表的索引 `coupon`
+--
+ALTER TABLE `coupon`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -206,6 +237,12 @@ ALTER TABLE `address`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- 使用表AUTO_INCREMENT `coupon`
+--
+ALTER TABLE `coupon`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- 使用表AUTO_INCREMENT `goods`
 --
 ALTER TABLE `goods`
@@ -221,7 +258,7 @@ ALTER TABLE `label`
 -- 使用表AUTO_INCREMENT `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- 使用表AUTO_INCREMENT `user`

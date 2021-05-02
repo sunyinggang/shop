@@ -113,7 +113,7 @@ Page({
       })
     }
   },
- //选择收货地址，调用微信自带的收货地址
+ //选择收货地址
   chooseAddress() {
     if(this.data.user == null){
       this.setData({ 
@@ -123,6 +123,19 @@ Page({
     }else{
       wx.navigateTo({
         url: '/pages/address_list/index?user_id=' + this.data.user.id+ '&no_select=1'
+      })
+    }
+  },
+  //跳转到优惠券列表页面
+  getCouponList() {
+    if(this.data.user == null){
+      this.setData({ 
+        alert: true,
+        alert_info: "请先进行登录"
+       });
+    }else{
+      wx.navigateTo({
+        url: '/pages/coupon/index?user_id=' + this.data.user.id+ '&no_select=1'
       })
     }
   },

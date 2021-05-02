@@ -86,3 +86,18 @@ class Address(db.Model):
         if "_sa_instance_state" in dict:
             del dict["_sa_instance_state"]
             return dict
+
+
+class Coupon(db.Model):
+    __tablename__ = 'coupon'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    al = db.Column(db.String(255))
+    les = db.Column(db.String(255))
+    status = db.Column(db.Integer)
+
+    def to_json(self):
+        dict = self.__dict__
+        if "_sa_instance_state" in dict:
+            del dict["_sa_instance_state"]
+            return dict

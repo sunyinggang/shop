@@ -46,8 +46,29 @@
 			</view>
 		</van-card>
 	</view>
+	<view class="">
+		<view wx:if="{{couponInfo}}" bindtap="chooseCoupon">
+			<van-row>
+				<van-col span="19" custom-class="address-o">
+					<view style="font-size:13px;margin-left:20px;color:red;">
+						<van-icon name="coupon-o" />
+						满{{couponInfo.al}}减{{couponInfo.les}}
+					</view>
+				</van-col>
+			</van-row>
+
+		</view>
+		<view wx:else>
+			<van-cell
+			 title="选择优惠券"
+			 icon="coupon-o"
+			 is-link
+			 bind:click="chooseCoupon"
+			/>
+		</view>
+	</view>
 	<van-submit-bar
-	 price="{{good.price*100*num}}"
+	 price="{{(good.price*num-les)*100}}"
 	 button-text="提交订单"
 	 bind:submit="onSubmit"
 	/>
